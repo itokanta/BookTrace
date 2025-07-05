@@ -3,6 +3,7 @@ class ReadingRecordsController < ApplicationController
   
   def index
     @reading_records = ReadingRecord.includes(:user).order(finished_on: :desc)
+    #:descは並べ替え、この場合は、読了日の新しい順に並び替え（一般的な昇順(asc)、その反対が降順(desc)）※https://qiita.com/__Wata16__/items/cce088bacebf3dfa07e1
   end
 
   def show
