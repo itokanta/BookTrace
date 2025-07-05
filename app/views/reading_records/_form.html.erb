@@ -1,7 +1,7 @@
 <%= form_with(model: reading_record, local: true) do |form| %>
   <% if reading_record.errors.any? %>
     <div class="alert alert-danger">
-      <h2><%= pluralize(reading_record.errors.count, "error") %> prohibited this reading_record from being saved:</h2>
+      <h2>保存に失敗しました。下記をご確認ください。</h2>
       <ul>
         <% reading_record.errors.full_messages.each do |message| %>
           <li><%= message %></li>
