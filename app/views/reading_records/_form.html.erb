@@ -1,0 +1,36 @@
+<%= form_with(model: reading_record, local: true) do |form| %>
+  <% if reading_record.errors.any? %>
+    <div class="alert alert-danger">
+      <h2><%= pluralize(reading_record.errors.count, "error") %> prohibited this reading_record from being saved:</h2>
+      <ul>
+        <% reading_record.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group mb-3">
+    <%= form.label :title, 'タイトル' %>
+    <%= form.text_field :title, class: 'form-control' %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :author, '著者' %>
+    <%= form.text_field :author, class: 'form-control' %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :finished_on, '読了日' %>
+    <%= form.date_field :finished_on, class: 'form-control' %>
+  </div>
+
+  <div class="form-group mb-3">
+    <%= form.label :user_id, '読者' %>
+    <%= form.collection_select :user_id, User.all, :id, :name, { prompt: '読者を選択してください' }, { class: 'form-control' } %>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit class: 'btn btn-primary' %>
+  </div>
+<% end %> 

@@ -1,0 +1,8 @@
+<h1>読書記録編集</h1>
+
+<%= render 'form', reading_record: @reading_record %>
+
+<div class="mt-3">
+  <%= link_to '詳細', @reading_record, class: 'btn btn-info' %>
+  <%= link_to '一覧に戻る', reading_records_path, class: 'btn btn-secondary' %>
+</div>
