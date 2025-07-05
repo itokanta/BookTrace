@@ -1,0 +1,38 @@
+<h1>読書記録一覧</h1>
+
+<div class="mb-3">
+  <%= link_to '新しい読書記録を追加', new_reading_record_path, class: 'btn btn-primary' %>
+</div>
+
+<% if @reading_records.any? %>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>タイトル</th>
+          <th>著者</th>
+          <th>読了日</th>
+          <th>読者</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @reading_records.each do |record| %>
+          <tr>
+            <td><%= record.title %></td>
+            <td><%= record.author %></td>
+            <td><%= record.finished_on.strftime('%Y年%m月%d日') %></td>
+            <td><%= record.user.name %></td>
+            <td>
+              <%= link_to '詳細', record, class: 'btn btn-sm btn-info' %>
+              <%= link_to '編集', edit_reading_record_path(record), class: 'btn btn-sm btn-warning' %>
+              <%= link_to '削除', record, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-sm btn-danger' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <p>読書記録がありません。</p>
+<% end %>
