@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_06_062953) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_06_112602) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -21,6 +21,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_06_062953) do
     t.date "finished_on", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "public", default: false, null: false
     t.index ["user_id", "title", "author"], name: "index_reading_records_on_user_id_and_title_and_author", unique: true
     t.index ["user_id"], name: "index_reading_records_on_user_id"
   end
