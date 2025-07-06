@@ -1,8 +1,9 @@
 class ReadingRecordsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_reading_record, only: [:show, :edit, :update, :destroy]
   
   def index
-    @reading_records = ReadingRecord.includes(:user).order(finished_on: :desc)
+    @reading_records = ReadingRecord.public_records.includes(:user).order(finished_on: :desc)
     #:descは並べ替え、この場合は、読了日の新しい順に並び替え（一般的な昇順(asc)、その反対が降順(desc)）※https://qiita.com/__Wata16__/items/cce088bacebf3dfa07e1
   end
 
@@ -10,11 +11,11 @@ class ReadingRecordsController < ApplicationController
   end
 
   def new
-    @reading_record = ReadingRecord.new
+    @reading_record = current_user.reading_records.build
   end
 
   def create
-    @reading_record = ReadingRecord.new(reading_record_params)
+    @reading_record = current_user.reading_records.build(reading_record_params)
     
     if @reading_record.save
       redirect_to @reading_record, notice: '読書記録が正常に作成されました。'
@@ -42,10 +43,14 @@ class ReadingRecordsController < ApplicationController
   private
 
   def set_reading_record
-    @reading_record = ReadingRecord.find(params[:id])
+    if user_signed_in?
+      @reading_record = current_user.reading_records.find(params[:id])
+    else
+      @reading_record = ReadingRecord.public_records.find(params[:id])
+    end
   end
 
   def reading_record_params
-    params.require(:reading_record).permit(:title, :author, :finished_on, :user_id)
+    params.require(:reading_record).permit(:title, :author, :finished_on, :public)
   end
 end

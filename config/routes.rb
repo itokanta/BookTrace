@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :users
+  
+  # マイページ
+  get 'profile', to: 'profiles#show', as: :profile
+  
   # RESTfulなルーティング
   resources :reading_records
   
