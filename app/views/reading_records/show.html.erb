@@ -12,7 +12,9 @@
 </div>
 
 <div class="mt-3">
-  <%= link_to '編集', edit_reading_record_path(@reading_record), class: 'btn btn-warning' %>
   <%= link_to '一覧に戻る', reading_records_path, class: 'btn btn-secondary' %>
-  <%= link_to '削除', @reading_record, method: :delete, data: { confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+  <% if user_signed_in? && @reading_record.user == current_user %>
+    <%= link_to '編集', edit_reading_record_path(@reading_record), class: 'btn btn-warning' %>
+    <%= link_to '削除', @reading_record, data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' }, class: 'btn btn-danger' %>
+  <% end %>
 </div>

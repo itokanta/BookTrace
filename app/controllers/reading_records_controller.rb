@@ -1,5 +1,5 @@
 class ReadingRecordsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_reading_record, only: [:show, :edit, :update, :destroy]
   
   def index
@@ -43,7 +43,11 @@ class ReadingRecordsController < ApplicationController
   private
 
   def set_reading_record
-    @reading_record = current_user.reading_records.find(params[:id])
+    if user_signed_in?
+      @reading_record = current_user.reading_records.find(params[:id])
+    else
+      @reading_record = ReadingRecord.public_records.find(params[:id])
+    end
   end
 
   def reading_record_params
