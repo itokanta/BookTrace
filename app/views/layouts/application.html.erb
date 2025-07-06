@@ -21,7 +21,7 @@
             <span class="navbar-text me-3">
               ようこそ、<%= current_user.name %>さん
             </span>
-            <%= link_to "マイページ", user_path(current_user), class: "nav-link" %>
+            <%= link_to "マイページ", profile_path, class: "nav-link" %>
             <%= link_to "読書記録一覧", reading_records_path, class: "nav-link" %>
             <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "nav-link" %>
           <% else %>
