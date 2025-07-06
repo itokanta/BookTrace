@@ -5,6 +5,7 @@ class CreateReadingRecords < ActiveRecord::Migration[7.1]
       t.string :title, null: false
       t.string :author, null: false
       t.date :finished_on, null: false
+      t.boolean :public, default: false, null: false
 
       t.timestamps
     end

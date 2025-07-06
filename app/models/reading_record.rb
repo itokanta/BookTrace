@@ -15,6 +15,13 @@ class ReadingRecord < ApplicationRecord
     message: "は既に登録されています" 
   }
   
+  # 公開フラグのデフォルト値を設定
+  attribute :public, :boolean, default: false
+  
+  # スコープ
+  scope :public_records, -> { where(public: true) }
+  scope :private_records, -> { where(public: false) }
+  
   private
   
   def finished_on_cannot_be_in_the_future
