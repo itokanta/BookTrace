@@ -7,27 +7,51 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
     <!-- ナビゲーションバー -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-light bg-white shadow-sm border-bottom">
       <div class="container">
-        <%= link_to "BookTrace", root_path, class: "navbar-brand" %>
-        
-        <div class="navbar-nav ms-auto">
-          <% if user_signed_in? %>
-            <span class="navbar-text me-3">
-              ようこそ、<%= current_user.name %>さん
-            </span>
-            <%= link_to "マイページ", profile_path, class: "nav-link" %>
-            <%= link_to "読書記録一覧", reading_records_path, class: "nav-link" %>
-            <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link" %>
-          <% else %>
-            <%= link_to "ログイン", new_user_session_path, class: "nav-link" %>
-            <%= link_to "新規登録", new_user_registration_path, class: "nav-link" %>
+        <div class="d-flex justify-content-between align-items-center w-100">
+          <!-- ブランドロゴ -->
+          <%= link_to root_path, class: "navbar-brand" do %>
+            <i class="fas fa-book-open me-2 text-primary"></i>
+            <span class="fw-bold text-dark">BookTrace</span>
           <% end %>
+          
+          <!-- ログイン状態に応じたボタン -->
+          <div class="d-flex align-items-center">
+            <% if user_signed_in? %>
+              <span class="navbar-text text-muted me-3">
+                <i class="fas fa-user-circle me-1"></i>
+                ようこそ、<%= current_user.name %>さん
+              </span>
+              <%= link_to profile_path, class: "nav-link d-flex align-items-center me-3" do %>
+                <i class="fas fa-user me-1"></i>
+                マイページ
+              <% end %>
+              <%= link_to reading_records_path, class: "nav-link d-flex align-items-center me-3" do %>
+                <i class="fas fa-list me-1"></i>
+                読書記録一覧
+              <% end %>
+              <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "btn btn-outline-danger btn-sm" do %>
+                <i class="fas fa-sign-out-alt me-1"></i>
+                ログアウト
+              <% end %>
+            <% else %>
+              <%= link_to new_user_session_path, class: "btn btn-warning" do %>
+                <i class="fas fa-sign-in-alt me-1"></i>
+                ログイン
+              <% end %>
+              <%= link_to new_user_registration_path, class: "btn btn-primary" do %>
+                <i class="fas fa-user-plus me-1"></i>
+                新規登録
+              <% end %>
+            <% end %>
+          </div>
         </div>
       </div>
     </nav>
@@ -39,16 +63,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     <% end %>
-    
-    <% if alert %>
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <%= alert %>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    <% end %>
 
-    <div class="container mt-4">
-      <%= yield %>
-    </div>
+    <%= yield %>
   </body>
 </html>
