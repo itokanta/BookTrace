@@ -13,20 +13,20 @@ puts "Creating users..."
 
 user1 = User.find_or_create_by!(email: "user1@example.com") do |user|
   user.name = "田中太郎"
-  user.password = "password123"
-  user.password_confirmation = "password123"
+  user.password = "development_password"
+  user.password_confirmation = "development_password"
 end
 
 user2 = User.find_or_create_by!(email: "user2@example.com") do |user|
   user.name = "佐藤花子"
-  user.password = "password123"
-  user.password_confirmation = "password123"
+  user.password = "development_password"
+  user.password_confirmation = "development_password"
 end
 
 user3 = User.find_or_create_by!(email: "user3@example.com") do |user|
   user.name = "鈴木一郎"
-  user.password = "password123"
-  user.password_confirmation = "password123"
+  user.password = "development_password"
+  user.password_confirmation = "development_password"
 end
 
 puts "Users created successfully!"
